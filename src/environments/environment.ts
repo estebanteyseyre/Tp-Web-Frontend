@@ -1,4 +1,3 @@
 export const environment = {
-  // En la entrega 2 se reemplaza por la URL real del backend en Render.
-  apiUrl: 'https://TU-APP-DE-RENDER.onrender.com',
+  apiUrl: 'https://tp-web-backend-w7x0.onrender.com',
 };
