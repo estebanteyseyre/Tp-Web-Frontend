@@ -1,0 +1,72 @@
+<h2>{{ esEdicion ? 'Editar auto' : 'Nuevo auto' }}</h2>
+
+<p *ngIf="cargando">Cargando...</p>
+
+<p class="error" *ngIf="error">{{ error }}</p>
+
+<p *ngIf="!cargando && competiciones.length === 0">
+  Primero creá una competición: el auto necesita pertenecer a una.
+</p>
+
+<form #autoForm="ngForm" (ngSubmit)="guardar()" *ngIf="!cargando && competiciones.length > 0">
+  <div>
+    <label for="modelo">Modelo:</label>
+    <input id="modelo" name="modelo" type="text" required [(ngModel)]="auto.modelo" #modelo="ngModel" />
+    <span class="error" *ngIf="modelo.invalid && modelo.touched">El modelo es obligatorio.</span>
+  </div>
+
+  <div>
+    <label for="marca">Marca:</label>
+    <input id="marca" name="marca" type="text" required [(ngModel)]="auto.marca" #marca="ngModel" />
+    <span class="error" *ngIf="marca.invalid && marca.touched">La marca es obligatoria.</span>
+  </div>
+
+  <div>
+    <label for="numero">Número:</label>
+    <input id="numero" name="numero" type="number" min="1" required [(ngModel)]="auto.numero" #numero="ngModel" />
+    <span class="error" *ngIf="numero.invalid && numero.touched">Ingresá un número mayor a 0.</span>
+  </div>
+
+  <div>
+    <label for="potencia">Potencia:</label>
+    <input id="potencia" name="potencia" type="number" min="1" required [(ngModel)]="auto.potencia" #potencia="ngModel" />
+    <span class="error" *ngIf="potencia.invalid && potencia.touched">Ingresá una potencia mayor a 0.</span>
+  </div>
+
+  <div>
+    <label for="piloto">Piloto:</label>
+    <input id="piloto" name="piloto" type="text" required [(ngModel)]="auto.piloto" #piloto="ngModel" />
+    <span class="error" *ngIf="piloto.invalid && piloto.touched">El piloto es obligatorio.</span>
+  </div>
+
+  <div>
+    <label for="categoria">Categoría:</label>
+    <input id="categoria" name="categoria" type="text" required [(ngModel)]="auto.categoria" #categoria="ngModel" />
+    <span class="error" *ngIf="categoria.invalid && categoria.touched">La categoría es obligatoria.</span>
+  </div>
+
+  <div>
+    <label for="competicionId">Competición:</label>
+    <select
+      id="competicionId"
+      name="competicionId"
+      required
+      [(ngModel)]="auto.competicionId"
+      #competicion="ngModel"
+    >
+      <option [ngValue]="0" disabled>Seleccione una competición</option>
+      <option *ngFor="let c of competiciones" [ngValue]="c.id">{{ c.nombre }}</option>
+    </select>
+    <span class="error" *ngIf="competicion.invalid && competicion.touched">
+      Elegí una competición.
+    </span>
+    <span class="error" *ngIf="auto.competicionId === 0 && competicion.touched">
+      Elegí una competición.
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="autoForm.invalid || auto.competicionId === 0 || guardando">
+    {{ guardando ? 'Guardando...' : 'Guardar' }}
+  </button>
+  <a routerLink="/autos">Cancelar</a>
+</form>

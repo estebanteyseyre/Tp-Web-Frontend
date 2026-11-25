@@ -1,6 +1,6 @@
 # TP Tecnologías Web — Frontend: Competiciones y Autos
 
-SPA de Angular que consume la API REST del backend de este TP. Hoy permite **listar, crear y borrar competiciones**; el módulo de autos y la edición están en progreso.
+SPA de Angular que consume la API REST del backend de este TP. Permite el **CRUD completo de competiciones y autos** desde la UI, muestra la relación 1:N (cantidad de autos por competición y competición asignada a cada auto) y maneja errores de carga/guardado.
 
 ## Deploy
 
@@ -40,8 +40,12 @@ src/app/
   app-routing-module.ts          -> rutas
   competiciones/
     competicion-data.ts          -> servicio con el CRUD (GET/POST/PATCH/DELETE)
-    competicion-list/            -> tabla, alta via link y borrado
-    competicion-form/            -> formulario con validación
+    competicion-list/            -> tabla con cantidad de autos, alta, edición y borrado
+    competicion-form/            -> formulario con validación (alta y edición)
+  autos/
+    auto-data.ts                 -> servicio con el CRUD de autos
+    auto-list/                   -> tabla con la competición de cada auto
+    auto-form/                   -> formulario con <select> de competición
 src/environments/                -> URL de la API según entorno
 public/_redirects                -> soporte de rutas en Netlify
 ```
@@ -50,7 +54,7 @@ public/_redirects                -> soporte de rutas en Netlify
 
 ```bash
 npm run build   # genera dist/frontend-competicion/browser
-npm test        # Vitest (los tests de scaffold aún se están ajustando)
+npm test        # Vitest (5 tests pasando)
 ```
 
 ## Notas para la cátedra

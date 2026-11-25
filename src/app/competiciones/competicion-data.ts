@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+export interface AutoResumen {
+  id: number;
+  modelo: string;
+}
+
 export interface CompeticionInput {
   nombre: string;
   premio: string;
@@ -12,6 +17,7 @@ export interface CompeticionInput {
 
 export interface Competicion extends CompeticionInput {
   id: number;
+  autos?: AutoResumen[];
 }
 
 @Injectable({
@@ -26,12 +32,16 @@ export class CompeticionData {
     return this.http.get<Competicion[]>(this.url);
   }
 
+  getById(id: number): Observable<Competicion> {
+    return this.http.get<Competicion>(`${this.url}/${id}`);
+  }
+
   create(competicion: CompeticionInput): Observable<Competicion> {
     return this.http.post<Competicion>(this.url, competicion);
   }
 
-  update(competicion: Competicion): Observable<Competicion> {
-    return this.http.patch<Competicion>(`${this.url}/${competicion.id}`, competicion);
+  update(id: number, competicion: CompeticionInput): Observable<Competicion> {
+    return this.http.patch<Competicion>(`${this.url}/${id}`, competicion);
   }
 
   remove(id: number): Observable<void> {

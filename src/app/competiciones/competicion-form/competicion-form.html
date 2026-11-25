@@ -1,4 +1,6 @@
-<h2>Nueva Competición</h2>
+<h2>{{ esEdicion ? 'Editar competición' : 'Nueva competición' }}</h2>
+
+<p class="error" *ngIf="error">{{ error }}</p>
 
 <form #compForm="ngForm" (ngSubmit)="guardar()">
   <div>
@@ -8,10 +10,10 @@
       name="nombre"
       type="text"
       required
-      [(ngModel)]="nuevaCompeticion.nombre"
+      [(ngModel)]="competicion.nombre"
       #nombre="ngModel"
     />
-    <span *ngIf="nombre.invalid && nombre.touched">El nombre es obligatorio.</span>
+    <span class="error" *ngIf="nombre.invalid && nombre.touched">El nombre es obligatorio.</span>
   </div>
 
   <div>
@@ -21,10 +23,10 @@
       name="premio"
       type="text"
       required
-      [(ngModel)]="nuevaCompeticion.premio"
+      [(ngModel)]="competicion.premio"
       #premio="ngModel"
     />
-    <span *ngIf="premio.invalid && premio.touched">El premio es obligatorio.</span>
+    <span class="error" *ngIf="premio.invalid && premio.touched">El premio es obligatorio.</span>
   </div>
 
   <div>
@@ -34,10 +36,10 @@
       name="fecha"
       type="date"
       required
-      [(ngModel)]="nuevaCompeticion.fecha"
+      [(ngModel)]="competicion.fecha"
       #fecha="ngModel"
     />
-    <span *ngIf="fecha.invalid && fecha.touched">La fecha es obligatoria.</span>
+    <span class="error" *ngIf="fecha.invalid && fecha.touched">La fecha es obligatoria.</span>
   </div>
 
   <div>
@@ -47,11 +49,14 @@
       name="lugar"
       type="text"
       required
-      [(ngModel)]="nuevaCompeticion.lugar"
+      [(ngModel)]="competicion.lugar"
       #lugar="ngModel"
     />
-    <span *ngIf="lugar.invalid && lugar.touched">El lugar es obligatorio.</span>
+    <span class="error" *ngIf="lugar.invalid && lugar.touched">El lugar es obligatorio.</span>
   </div>
 
-  <button type="submit" [disabled]="compForm.invalid">Guardar</button>
+  <button type="submit" [disabled]="compForm.invalid || guardando">
+    {{ guardando ? 'Guardando...' : 'Guardar' }}
+  </button>
+  <a routerLink="/competiciones">Cancelar</a>
 </form>

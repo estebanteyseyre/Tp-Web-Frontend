@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Competicion, CompeticionData } from '../competicion-data';
 
 @Component({
@@ -9,6 +9,8 @@ import { Competicion, CompeticionData } from '../competicion-data';
 })
 export class CompeticionList implements OnInit {
   competiciones: Competicion[] = [];
+  cargando = true;
+  error: string | null = null;
 
   constructor(
     private competicionData: CompeticionData,
@@ -16,16 +18,30 @@ export class CompeticionList implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.competicionData.getAll().subscribe((data) => {
-      this.competiciones = data;
-      this.cdr.markForCheck();
+    this.competicionData.getAll().subscribe({
+      next: (data) => {
+        this.competiciones = data;
+        this.cargando = false;
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.error = 'No se pudieron cargar las competiciones. Intentá de nuevo en unos segundos.';
+        this.cargando = false;
+        this.cdr.markForCheck();
+      },
     });
   }
 
   borrar(id: number): void {
-    this.competicionData.remove(id).subscribe(() => {
-      this.competiciones = this.competiciones.filter((c) => c.id !== id);
-      this.cdr.markForCheck();
+    this.competicionData.remove(id).subscribe({
+      next: () => {
+        this.competiciones = this.competiciones.filter((c) => c.id !== id);
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.error = 'No se pudo borrar la competición.';
+        this.cdr.markForCheck();
+      },
     });
   }
 }
