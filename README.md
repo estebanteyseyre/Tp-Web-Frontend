@@ -1,59 +1,63 @@
-# FrontendCompeticion
+# TP Tecnologías Web — Frontend: Competiciones y Autos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.3.0.
+SPA de Angular que consume la API REST del backend de este TP. Hoy permite **listar, crear y borrar competiciones**; el módulo de autos y la edición están en progreso.
 
-## Development server
+## Deploy
 
-To start a local development server, run:
+- **Frontend (Netlify):** https://tp-web-frontend-srau.netlify.app
+- **Backend (Render):** https://tp-web-backend-w7x0.onrender.com
 
-```bash
-ng serve
-```
+En Netlify el build se configura con:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Build command:** `npm run build`
+- **Publish directory:** `dist/frontend-competicion/browser`
 
-## Code scaffolding
+El archivo `public/_redirects` (`/* /index.html 200`) hace que refrescar una ruta interna como `/competiciones/nueva` no devuelva 404.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Stack
 
-```bash
-ng generate component component-name
-```
+- **Angular 22.3.0** en modo **NgModule** (`standalone: false`), igual que el estilo de las slides pero con la versión actual del framework.
+- **HttpClient** provisto con `provideHttpClient()` en `app-module.ts`.
+- **FormsModule** para `[(ngModel)]` en el formulario.
+- **Router** con rutas `/competiciones` y `/competiciones/nueva`.
+- **Environments** generados con `ng generate environments`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Desarrollo
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Abrir `http://localhost:4200`. En desarrollo se usa `src/environments/environment.development.ts`, que apunta a `http://localhost:3000`. En producción se usa `src/environments/environment.ts`, que apunta a Render.
 
-## Running unit tests
+## Estructura relevante
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+```
+src/app/
+  app.ts / app.html              -> layout con header y <router-outlet>
+  app-module.ts                  -> providers (HttpClient) y declaraciones
+  app-routing-module.ts          -> rutas
+  competiciones/
+    competicion-data.ts          -> servicio con el CRUD (GET/POST/PATCH/DELETE)
+    competicion-list/            -> tabla, alta via link y borrado
+    competicion-form/            -> formulario con validación
+src/environments/                -> URL de la API según entorno
+public/_redirects                -> soporte de rutas en Netlify
+```
+
+## Build y tests
 
 ```bash
-ng test
+npm run build   # genera dist/frontend-competicion/browser
+npm test        # Vitest (los tests de scaffold aún se están ajustando)
 ```
 
-## Running end-to-end tests
+## Notas para la cátedra
 
-For end-to-end (e2e) testing, run:
+Angular 22 trae cambios respecto del Angular 12 de las slides:
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Los archivos se llaman `app.ts`, `app-module.ts` y usan `styleUrl` (en singular).
+- `provideHttpClient()` reemplaza al viejo `HttpClientModule`.
+- No se incluye `zone.js`: la app es **zoneless**. Por eso, después de asignar datos dentro de un `subscribe`, se llama a `ChangeDetectorRef.markForCheck()` para actualizar la vista (ver `competicion-list.ts`).
+- Los assets estáticos van en `public/`, no en `src/assets/`.
