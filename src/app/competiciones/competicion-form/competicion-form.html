@@ -1,0 +1,57 @@
+<h2>Nueva Competición</h2>
+
+<form #compForm="ngForm" (ngSubmit)="guardar()">
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input
+      id="nombre"
+      name="nombre"
+      type="text"
+      required
+      [(ngModel)]="nuevaCompeticion.nombre"
+      #nombre="ngModel"
+    />
+    <span *ngIf="nombre.invalid && nombre.touched">El nombre es obligatorio.</span>
+  </div>
+
+  <div>
+    <label for="premio">Premio:</label>
+    <input
+      id="premio"
+      name="premio"
+      type="text"
+      required
+      [(ngModel)]="nuevaCompeticion.premio"
+      #premio="ngModel"
+    />
+    <span *ngIf="premio.invalid && premio.touched">El premio es obligatorio.</span>
+  </div>
+
+  <div>
+    <label for="fecha">Fecha:</label>
+    <input
+      id="fecha"
+      name="fecha"
+      type="date"
+      required
+      [(ngModel)]="nuevaCompeticion.fecha"
+      #fecha="ngModel"
+    />
+    <span *ngIf="fecha.invalid && fecha.touched">La fecha es obligatoria.</span>
+  </div>
+
+  <div>
+    <label for="lugar">Lugar:</label>
+    <input
+      id="lugar"
+      name="lugar"
+      type="text"
+      required
+      [(ngModel)]="nuevaCompeticion.lugar"
+      #lugar="ngModel"
+    />
+    <span *ngIf="lugar.invalid && lugar.touched">El lugar es obligatorio.</span>
+  </div>
+
+  <button type="submit" [disabled]="compForm.invalid">Guardar</button>
+</form>

@@ -1,0 +1,26 @@
+<a routerLink="/competiciones/nueva">Nueva competición</a>
+
+<p *ngIf="competiciones.length === 0">Cargando...</p>
+
+<table *ngIf="competiciones.length > 0">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Premio</th>
+      <th>Fecha</th>
+      <th>Lugar</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of competiciones">
+      <td>{{ c.nombre }}</td>
+      <td>{{ c.premio }}</td>
+      <td>{{ c.fecha }}</td>
+      <td>{{ c.lugar }}</td>
+      <td>
+        <button (click)="borrar(c.id)">Borrar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
