@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Competicion, CompeticionData } from '../competicion-data';
+import { coincide } from '../../shared/busqueda';
 
 @Component({
   selector: 'app-competicion-list',
@@ -9,6 +10,7 @@ import { Competicion, CompeticionData } from '../competicion-data';
 })
 export class CompeticionList implements OnInit {
   competiciones: Competicion[] = [];
+  busqueda = '';
   cargando = true;
   error: string | null = null;
 
@@ -16,6 +18,12 @@ export class CompeticionList implements OnInit {
     private competicionData: CompeticionData,
     private cdr: ChangeDetectorRef
   ) {}
+
+  get competicionesFiltradas(): Competicion[] {
+    return this.competiciones.filter((c) =>
+      coincide(this.busqueda, [c.nombre, c.premio, c.fecha, c.lugar])
+    );
+  }
 
   ngOnInit(): void {
     this.competicionData.getAll().subscribe({
@@ -30,6 +38,15 @@ export class CompeticionList implements OnInit {
         this.cdr.markForCheck();
       },
     });
+  }
+
+  alCambiarBusqueda(): void {
+    this.cdr.markForCheck();
+  }
+
+  limpiarBusqueda(): void {
+    this.busqueda = '';
+    this.cdr.markForCheck();
   }
 
   borrar(id: number): void {

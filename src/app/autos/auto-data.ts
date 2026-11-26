@@ -14,8 +14,10 @@ export interface AutoInput {
   competicionId: number;
 }
 
-export interface Auto extends AutoInput {
+// La API devuelve la competición como objeto; no siempre incluye competicionId.
+export interface Auto extends Omit<AutoInput, 'competicionId'> {
   id: number;
+  competicionId?: number;
   competicion?: Competicion;
 }
 

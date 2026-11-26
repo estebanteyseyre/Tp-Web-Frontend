@@ -3,6 +3,30 @@
   <a class="btn btn-secundario" routerLink="/autos">Ver autos</a>
 </div>
 
+<div class="buscador">
+  <label for="buscar-competicion">Buscar competición</label>
+  <div class="buscador-fila">
+    <input
+      id="buscar-competicion"
+      type="search"
+      placeholder="Nombre, premio, fecha o lugar..."
+      [(ngModel)]="busqueda"
+      (ngModelChange)="alCambiarBusqueda()"
+    />
+    <button
+      type="button"
+      class="btn btn-small btn-secundario"
+      *ngIf="busqueda"
+      (click)="limpiarBusqueda()"
+    >
+      Limpiar
+    </button>
+  </div>
+  <p class="resultados" *ngIf="!cargando && busqueda">
+    {{ competicionesFiltradas.length }} de {{ competiciones.length }} competiciones
+  </p>
+</div>
+
 <p *ngIf="cargando">Cargando...</p>
 
 <p class="error" *ngIf="error">{{ error }}</p>
@@ -11,7 +35,11 @@
   No hay competiciones todavía. Creá la primera.
 </p>
 
-<table *ngIf="!cargando && competiciones.length > 0">
+<p *ngIf="!cargando && !error && competiciones.length > 0 && competicionesFiltradas.length === 0">
+  No hay competiciones que coincidan con la búsqueda.
+</p>
+
+<table *ngIf="!cargando && competicionesFiltradas.length > 0">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -23,13 +51,21 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let c of competiciones">
+    <tr *ngFor="let c of competicionesFiltradas">
       <td>{{ c.nombre }}</td>
       <td>{{ c.premio }}</td>
       <td>{{ c.fecha }}</td>
       <td>{{ c.lugar }}</td>
       <td>{{ c.autos?.length ?? 0 }}</td>
       <td class="acciones">
+        <a
+          class="btn btn-small"
+          [routerLink]="['/autos']"
+          [queryParams]="{ competicion: c.id }"
+          [attr.aria-label]="'Ver autos de ' + c.nombre"
+        >
+          Ver autos
+        </a>
         <a class="btn btn-small btn-secundario" [routerLink]="['/competiciones/editar', c.id]">Editar</a>
         <button class="btn btn-small btn-peligro" (click)="borrar(c.id)">Borrar</button>
       </td>

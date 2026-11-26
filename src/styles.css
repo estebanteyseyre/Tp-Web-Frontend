@@ -104,6 +104,49 @@ button:disabled,
   margin-bottom: 1rem;
 }
 
+td.acciones {
+  margin-bottom: 0;
+}
+
+.buscador {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.buscador-fila {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.buscador input {
+  flex: 1 1 260px;
+}
+
+.resultados {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.filtro-competicion {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 0.92rem;
+}
+
 table {
   width: 100%;
   border-collapse: separate;
@@ -199,5 +242,9 @@ select:focus {
 
   .acciones {
     gap: 0.4rem;
+  }
+
+  .buscador input {
+    flex-basis: 100%;
   }
 }

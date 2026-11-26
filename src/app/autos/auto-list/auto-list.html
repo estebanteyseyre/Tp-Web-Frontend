@@ -3,13 +3,48 @@
   <a class="btn btn-secundario" routerLink="/competiciones">Ver competiciones</a>
 </div>
 
+<div class="buscador">
+  <label for="buscar-auto">Buscar auto</label>
+  <div class="buscador-fila">
+    <input
+      id="buscar-auto"
+      type="search"
+      placeholder="Modelo, marca, piloto, categoría o competición..."
+      [(ngModel)]="busqueda"
+      (ngModelChange)="alCambiarBusqueda()"
+    />
+    <button
+      type="button"
+      class="btn btn-small btn-secundario"
+      *ngIf="busqueda"
+      (click)="limpiarBusqueda()"
+    >
+      Limpiar
+    </button>
+  </div>
+  <p class="resultados" *ngIf="!cargando && busqueda">
+    {{ autosFiltrados.length }} de {{ autos.length }} autos
+  </p>
+</div>
+
+<p class="filtro-competicion" *ngIf="competicionFiltroId !== null">
+  Mostrando autos de <strong>{{ nombreCompeticionFiltro }}</strong>
+  <button type="button" class="btn btn-small btn-secundario" (click)="quitarFiltroCompeticion()">
+    Ver todos los autos
+  </button>
+</p>
+
 <p *ngIf="cargando">Cargando...</p>
 
 <p class="error" *ngIf="error">{{ error }}</p>
 
 <p *ngIf="!cargando && !error && autos.length === 0">No hay autos todavía. Creá el primero.</p>
 
-<table *ngIf="!cargando && autos.length > 0">
+<p *ngIf="!cargando && !error && autos.length > 0 && autosFiltrados.length === 0">
+  No hay autos que coincidan con la búsqueda.
+</p>
+
+<table *ngIf="!cargando && autosFiltrados.length > 0">
   <thead>
     <tr>
       <th>Modelo</th>
@@ -23,7 +58,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let a of autos">
+    <tr *ngFor="let a of autosFiltrados">
       <td>{{ a.modelo }}</td>
       <td>{{ a.marca }}</td>
       <td>{{ a.numero }}</td>
