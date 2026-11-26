@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { App } from './app';
 
@@ -6,6 +7,7 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         RouterModule.forRoot([])
       ],
       declarations: [

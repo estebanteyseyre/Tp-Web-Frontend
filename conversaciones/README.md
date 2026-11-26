@@ -14,3 +14,4 @@ No contiene credenciales: las contraseñas de la base quedaron solo en Render.
 - `2026-11-25_21-32_entrega2-crud-autos.md` — errores en UI, edición, módulo de autos y responsive.
 - `2026-11-25_resumen-final.md` — estado final, URLs, commits y verificación.
 - `2026-11-26_estetica.md` — fondo, botones y menú lateral izquierdo.
+- `2026-11-26_menu-inicial.md` — pantalla de inicio con título y dos botones, imagen de fondo.

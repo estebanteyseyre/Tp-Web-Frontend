@@ -4,9 +4,10 @@ import { CompeticionList } from './competiciones/competicion-list/competicion-li
 import { CompeticionForm } from './competiciones/competicion-form/competicion-form';
 import { AutoList } from './autos/auto-list/auto-list';
 import { AutoForm } from './autos/auto-form/auto-form';
+import { Home } from './home/home';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'competiciones', pathMatch: 'full' },
+  { path: '', component: Home, pathMatch: 'full' },
   { path: 'competiciones/nueva', component: CompeticionForm },
   { path: 'competiciones/editar/:id', component: CompeticionForm },
   { path: 'competiciones', component: CompeticionList },

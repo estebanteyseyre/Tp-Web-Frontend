@@ -8,9 +8,10 @@ import { CompeticionList } from './competiciones/competicion-list/competicion-li
 import { CompeticionForm } from './competiciones/competicion-form/competicion-form';
 import { AutoList } from './autos/auto-list/auto-list';
 import { AutoForm } from './autos/auto-form/auto-form';
+import { Home } from './home/home';
 
 @NgModule({
-  declarations: [App, CompeticionList, CompeticionForm, AutoList, AutoForm],
+  declarations: [App, CompeticionList, CompeticionForm, AutoList, AutoForm, Home],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners(), provideHttpClient()],
   bootstrap: [App],

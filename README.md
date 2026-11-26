@@ -14,6 +14,8 @@ En Netlify el build se configura con:
 
 El archivo `public/_redirects` (`/* /index.html 200`) hace que refrescar una ruta interna como `/competiciones/nueva` no devuelva 404.
 
+La imagen de fondo está en `public/fondo.avif` y se aplica desde `styles.css` con un overlay oscuro para que el texto se lea bien. Angular sirve `public/` en la raíz, así que también funciona en Netlify.
+
 ## Stack
 
 - **Angular 22.3.0** en modo **NgModule** (`standalone: false`), igual que el estilo de las slides pero con la versión actual del framework.
@@ -37,7 +39,8 @@ Abrir `http://localhost:4200`. En desarrollo se usa `src/environments/environmen
 src/app/
   app.ts / app.html              -> layout con header y <router-outlet>
   app-module.ts                  -> providers (HttpClient) y declaraciones
-  app-routing-module.ts          -> rutas
+  app-routing-module.ts          -> rutas (/, /competiciones, /autos)
+  home/                          -> pantalla inicial con título y dos botones
   competiciones/
     competicion-data.ts          -> servicio con el CRUD (GET/POST/PATCH/DELETE)
     competicion-list/            -> tabla con cantidad de autos, alta, edición y borrado
