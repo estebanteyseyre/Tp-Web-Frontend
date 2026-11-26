@@ -95,4 +95,28 @@ describe('AutoList', () => {
     component.competicionFiltroId = 2;
     expect(component.autosFiltrados.length).toBe(0);
   });
+
+  it('ordena por número y pide confirmación antes de borrar', () => {
+    component.autos = [
+      {
+        id: 1, modelo: 'B', marca: 'B', numero: 22, potencia: 1,
+        piloto: 'B', categoria: 'F1', competicionId: 1,
+      },
+      {
+        id: 2, modelo: 'A', marca: 'A', numero: 7, potencia: 1,
+        piloto: 'A', categoria: 'F1', competicionId: 1,
+      },
+    ];
+
+    component.ordenar('numero');
+    expect(component.autosFiltrados.map((a) => a.id)).toEqual([2, 1]);
+
+    component.ordenar('numero');
+    expect(component.autosFiltrados.map((a) => a.id)).toEqual([1, 2]);
+
+    component.pedirBorrar(2);
+    expect(component.confirmandoBorrado).toBe(2);
+    component.cancelarBorrar();
+    expect(component.confirmandoBorrado).toBeNull();
+  });
 });

@@ -1,6 +1,14 @@
 <div class="acciones">
   <a class="btn" routerLink="/autos/nuevo">Nuevo auto</a>
   <a class="btn btn-secundario" routerLink="/competiciones">Ver competiciones</a>
+  <button
+    type="button"
+    class="btn btn-secundario"
+    (click)="recargar()"
+    [disabled]="actualizando"
+  >
+    {{ actualizando ? 'Actualizando...' : 'Actualizar lista' }}
+  </button>
 </div>
 
 <div class="buscador">
@@ -47,13 +55,13 @@
 <table *ngIf="!cargando && autosFiltrados.length > 0">
   <thead>
     <tr>
-      <th>Modelo</th>
-      <th>Marca</th>
-      <th>Número</th>
-      <th>Potencia</th>
-      <th>Piloto</th>
-      <th>Categoría</th>
-      <th>Competición</th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('modelo')">Modelo{{ flecha('modelo') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('marca')">Marca{{ flecha('marca') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('numero')">Número{{ flecha('numero') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('potencia')">Potencia{{ flecha('potencia') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('piloto')">Piloto{{ flecha('piloto') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('categoria')">Categoría{{ flecha('categoria') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('competicion')">Competición{{ flecha('competicion') }}</button></th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -68,8 +76,19 @@
       <td>{{ a.competicion?.nombre ?? '—' }}</td>
       <td class="acciones">
         <a class="btn btn-small btn-secundario" [routerLink]="['/autos/editar', a.id]">Editar</a>
-        <button class="btn btn-small btn-peligro" (click)="borrar(a.id)">Borrar</button>
+        <button class="btn btn-small btn-peligro" (click)="pedirBorrar(a.id)">Borrar</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<div class="modal-fondo" *ngIf="confirmandoBorrado !== null">
+  <div class="modal">
+    <h3>¿Borrar el auto?</h3>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="acciones">
+      <button type="button" class="btn btn-peligro" (click)="confirmarBorrar()">Sí, borrar</button>
+      <button type="button" class="btn btn-secundario" (click)="cancelarBorrar()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Auto, AutoData } from '../auto-data';
 import { Competicion, CompeticionData } from '../../competiciones/competicion-data';
-import { coincide } from '../../shared/busqueda';
+import { coincide, normalizar } from '../../shared/busqueda';
+
+type CampoOrden = 'modelo' | 'marca' | 'numero' | 'potencia' | 'piloto' | 'categoria' | 'competicion';
 
 @Component({
   selector: 'app-auto-list',
@@ -16,6 +18,10 @@ export class AutoList implements OnInit {
   competiciones: Competicion[] = [];
   competicionFiltroId: number | null = null;
   busqueda = '';
+  ordenarPorCampo: CampoOrden = 'modelo';
+  ascendente = true;
+  confirmandoBorrado: number | null = null;
+  actualizando = false;
   cargando = true;
   error: string | null = null;
 
@@ -40,7 +46,7 @@ export class AutoList implements OnInit {
   }
 
   get autosFiltrados(): Auto[] {
-    return this.autos.filter((auto) => {
+    const filtrados = this.autos.filter((auto) => {
       // El backend serializa la relación como `competicion`, no como `competicionId`.
       const idCompeticion = auto.competicion?.id ?? auto.competicionId;
       if (this.competicionFiltroId !== null && idCompeticion !== this.competicionFiltroId) {
@@ -55,6 +61,16 @@ export class AutoList implements OnInit {
         auto.categoria,
         auto.competicion?.nombre,
       ]);
+    });
+
+    return [...filtrados].sort((a, b) => {
+      const valorA = this.valorOrden(a);
+      const valorB = this.valorOrden(b);
+      const resultado =
+        typeof valorA === 'number' && typeof valorB === 'number'
+          ? valorA - valorB
+          : normalizar(valorA).localeCompare(normalizar(valorB));
+      return this.ascendente ? resultado : -resultado;
     });
   }
 
@@ -73,6 +89,19 @@ export class AutoList implements OnInit {
         this.cdr.markForCheck();
       });
 
+    this.cargarCompeticiones();
+    this.cargar();
+  }
+
+  private valorOrden(auto: Auto): string | number {
+    const campo = this.ordenarPorCampo;
+    if (campo === 'competicion') {
+      return auto.competicion?.nombre ?? '';
+    }
+    return auto[campo];
+  }
+
+  private cargarCompeticiones(): void {
     this.competicionData.getAll().subscribe({
       next: (data) => {
         this.competiciones = data;
@@ -83,19 +112,47 @@ export class AutoList implements OnInit {
         this.cdr.markForCheck();
       },
     });
+  }
+
+  private cargar(mostrarEstado = false): void {
+    if (mostrarEstado) {
+      this.actualizando = true;
+      this.error = null;
+      this.cdr.markForCheck();
+    }
 
     this.autoData.getAll().subscribe({
       next: (data) => {
         this.autos = data;
         this.cargando = false;
+        this.actualizando = false;
         this.cdr.markForCheck();
       },
       error: () => {
         this.error = 'No se pudieron cargar los autos. Intentá de nuevo en unos segundos.';
         this.cargando = false;
+        this.actualizando = false;
         this.cdr.markForCheck();
       },
     });
+  }
+
+  recargar(): void {
+    this.cargar(true);
+  }
+
+  ordenar(campo: CampoOrden): void {
+    if (this.ordenarPorCampo === campo) {
+      this.ascendente = !this.ascendente;
+    } else {
+      this.ordenarPorCampo = campo;
+      this.ascendente = true;
+    }
+    this.cdr.markForCheck();
+  }
+
+  flecha(campo: CampoOrden): string {
+    return this.ordenarPorCampo === campo ? (this.ascendente ? ' ▲' : ' ▼') : '';
   }
 
   alCambiarBusqueda(): void {
@@ -111,7 +168,26 @@ export class AutoList implements OnInit {
     this.router.navigate(['/autos'], { queryParams: {} });
   }
 
-  borrar(id: number): void {
+  pedirBorrar(id: number): void {
+    this.confirmandoBorrado = id;
+    this.cdr.markForCheck();
+  }
+
+  cancelarBorrar(): void {
+    this.confirmandoBorrado = null;
+    this.cdr.markForCheck();
+  }
+
+  confirmarBorrar(): void {
+    const id = this.confirmandoBorrado;
+    if (id === null) {
+      return;
+    }
+    this.confirmandoBorrado = null;
+    this.borrar(id);
+  }
+
+  private borrar(id: number): void {
     this.autoData.remove(id).subscribe({
       next: () => {
         this.autos = this.autos.filter((a) => a.id !== id);

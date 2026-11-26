@@ -45,4 +45,27 @@ describe('CompeticionList', () => {
     component.limpiarBusqueda();
     expect(component.competicionesFiltradas.length).toBe(2);
   });
+
+  it('ordena por cantidad de autos y permite invertir el sentido', () => {
+    component.competiciones = [
+      { id: 1, nombre: 'Con autos', premio: '1', fecha: '2026-01-01', lugar: 'A', autos: [{ id: 9, modelo: 'Auto' }] },
+      { id: 2, nombre: 'Sin autos', premio: '2', fecha: '2026-01-02', lugar: 'B', autos: [] },
+    ];
+
+    component.ordenar('autos');
+    expect(component.competicionesFiltradas.map((c) => c.id)).toEqual([2, 1]);
+    expect(component.flecha('autos')).toBe(' ▲');
+
+    component.ordenar('autos');
+    expect(component.competicionesFiltradas.map((c) => c.id)).toEqual([1, 2]);
+    expect(component.flecha('autos')).toBe(' ▼');
+  });
+
+  it('pide confirmación antes de borrar', () => {
+    component.pedirBorrar(5);
+    expect(component.confirmandoBorrado).toBe(5);
+
+    component.cancelarBorrar();
+    expect(component.confirmandoBorrado).toBeNull();
+  });
 });

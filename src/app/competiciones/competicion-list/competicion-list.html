@@ -1,6 +1,14 @@
 <div class="acciones">
   <a class="btn" routerLink="/competiciones/nueva">Nueva competición</a>
   <a class="btn btn-secundario" routerLink="/autos">Ver autos</a>
+  <button
+    type="button"
+    class="btn btn-secundario"
+    (click)="recargar()"
+    [disabled]="actualizando"
+  >
+    {{ actualizando ? 'Actualizando...' : 'Actualizar lista' }}
+  </button>
 </div>
 
 <div class="buscador">
@@ -42,11 +50,11 @@
 <table *ngIf="!cargando && competicionesFiltradas.length > 0">
   <thead>
     <tr>
-      <th>Nombre</th>
-      <th>Premio</th>
-      <th>Fecha</th>
-      <th>Lugar</th>
-      <th>Autos</th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('nombre')">Nombre{{ flecha('nombre') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('premio')">Premio{{ flecha('premio') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('fecha')">Fecha{{ flecha('fecha') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('lugar')">Lugar{{ flecha('lugar') }}</button></th>
+      <th><button type="button" class="btn-orden" (click)="ordenar('autos')">Autos{{ flecha('autos') }}</button></th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -58,6 +66,7 @@
       <td>{{ c.lugar }}</td>
       <td>{{ c.autos?.length ?? 0 }}</td>
       <td class="acciones">
+        <a class="btn btn-small" [routerLink]="['/competiciones', c.id]">Ver detalle</a>
         <a
           class="btn btn-small"
           [routerLink]="['/autos']"
@@ -67,8 +76,19 @@
           Ver autos
         </a>
         <a class="btn btn-small btn-secundario" [routerLink]="['/competiciones/editar', c.id]">Editar</a>
-        <button class="btn btn-small btn-peligro" (click)="borrar(c.id)">Borrar</button>
+        <button class="btn btn-small btn-peligro" (click)="pedirBorrar(c.id)">Borrar</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<div class="modal-fondo" *ngIf="confirmandoBorrado !== null">
+  <div class="modal">
+    <h3>¿Borrar la competición?</h3>
+    <p>Esta acción no se puede deshacer.</p>
+    <div class="acciones">
+      <button type="button" class="btn btn-peligro" (click)="confirmarBorrar()">Sí, borrar</button>
+      <button type="button" class="btn btn-secundario" (click)="cancelarBorrar()">Cancelar</button>
+    </div>
+  </div>
+</div>

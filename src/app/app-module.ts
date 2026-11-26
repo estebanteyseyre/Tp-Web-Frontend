@@ -6,12 +6,13 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { CompeticionList } from './competiciones/competicion-list/competicion-list';
 import { CompeticionForm } from './competiciones/competicion-form/competicion-form';
+import { CompeticionDetail } from './competiciones/competicion-detail/competicion-detail';
 import { AutoList } from './autos/auto-list/auto-list';
 import { AutoForm } from './autos/auto-form/auto-form';
 import { Home } from './home/home';
 
 @NgModule({
-  declarations: [App, CompeticionList, CompeticionForm, AutoList, AutoForm, Home],
+  declarations: [App, CompeticionList, CompeticionForm, CompeticionDetail, AutoList, AutoForm, Home],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners(), provideHttpClient()],
   bootstrap: [App],

@@ -147,6 +147,58 @@ td.acciones {
   font-size: 0.92rem;
 }
 
+.btn-orden {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  box-shadow: none;
+}
+
+.btn-orden:hover:not(:disabled) {
+  background: transparent;
+  color: var(--primario);
+  transform: none;
+  box-shadow: none;
+}
+
+.modal-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.modal {
+  width: min(100%, 380px);
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.45);
+}
+
+.modal h3 {
+  margin: 0 0 0.5rem;
+}
+
+.modal p {
+  margin: 0 0 1rem;
+  color: #475569;
+}
+
+.modal .acciones {
+  margin-bottom: 0;
+}
+
 table {
   width: 100%;
   border-collapse: separate;

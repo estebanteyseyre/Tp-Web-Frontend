@@ -6,6 +6,11 @@ import { environment } from '../../environments/environment';
 export interface AutoResumen {
   id: number;
   modelo: string;
+  marca?: string;
+  numero?: number;
+  potencia?: number;
+  piloto?: string;
+  categoria?: string;
 }
 
 export interface CompeticionInput {
