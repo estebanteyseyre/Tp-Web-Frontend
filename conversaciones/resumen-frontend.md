@@ -99,7 +99,7 @@ Para probar en producción basta abrir la URL de Netlify (usa la API de Render; 
 - `ac974f1`, `b41c6a8`, `02305c8`, `64ea497`, `07bcdb3`, `eb26408` — armado del frontend, CRUD, errores, responsive y registro.
 - `22bca0f` — menú lateral, botones y fondo con degradado.
 - `cd821d4` — pantalla inicial, imagen de fondo y dos botones.
-- (último commit de esta entrega) — buscadores, filtro por competición, resumen y corrección del filtro con la respuesta real de la API.
+- `6196256` — buscadores, filtro por competición, resumen y corrección del filtro con la respuesta real de la API.
 
 ## 9. Checklist para entregar
 
