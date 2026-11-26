@@ -1,6 +1,6 @@
 <div class="acciones">
-  <a routerLink="/autos/nuevo">Nuevo auto</a>
-  <a routerLink="/competiciones">Ver competiciones</a>
+  <a class="btn" routerLink="/autos/nuevo">Nuevo auto</a>
+  <a class="btn btn-secundario" routerLink="/competiciones">Ver competiciones</a>
 </div>
 
 <p *ngIf="cargando">Cargando...</p>
@@ -32,8 +32,8 @@
       <td>{{ a.categoria }}</td>
       <td>{{ a.competicion?.nombre ?? '—' }}</td>
       <td class="acciones">
-        <a [routerLink]="['/autos/editar', a.id]">Editar</a>
-        <button (click)="borrar(a.id)">Borrar</button>
+        <a class="btn btn-small btn-secundario" [routerLink]="['/autos/editar', a.id]">Editar</a>
+        <button class="btn btn-small btn-peligro" (click)="borrar(a.id)">Borrar</button>
       </td>
     </tr>
   </tbody>

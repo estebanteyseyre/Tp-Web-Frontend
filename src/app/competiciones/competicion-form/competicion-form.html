@@ -55,8 +55,10 @@
     <span class="error" *ngIf="lugar.invalid && lugar.touched">El lugar es obligatorio.</span>
   </div>
 
-  <button type="submit" [disabled]="compForm.invalid || guardando">
-    {{ guardando ? 'Guardando...' : 'Guardar' }}
-  </button>
-  <a routerLink="/competiciones">Cancelar</a>
+  <div class="acciones">
+    <button type="submit" class="btn" [disabled]="compForm.invalid || guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar' }}
+    </button>
+    <a class="btn btn-secundario" routerLink="/competiciones">Cancelar</a>
+  </div>
 </form>

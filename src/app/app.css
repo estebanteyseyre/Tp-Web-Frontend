@@ -1,0 +1,112 @@
+:host {
+  display: block;
+}
+
+.cabecera {
+  background: linear-gradient(120deg, #0f172a, #1e3a8a);
+  color: #fff;
+  padding: 1.25rem 1.75rem;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.35);
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.bajada {
+  margin: 0.25rem 0 0;
+  color: #bfdbfe;
+  font-size: 0.85rem;
+}
+
+.cuerpo {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.25rem;
+}
+
+.menu-lateral {
+  flex: 0 0 220px;
+  position: sticky;
+  top: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+}
+
+.menu-lateral h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+
+.menu-lateral nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu-lateral a {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+.menu-lateral a:hover {
+  background: #dbeafe;
+  transform: translateX(2px);
+}
+
+.menu-lateral a.activo {
+  background: #2563eb;
+  color: #fff;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+}
+
+@media (max-width: 760px) {
+  .cuerpo {
+    flex-direction: column;
+    padding: 0 0.75rem;
+  }
+
+  .menu-lateral {
+    position: static;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .menu-lateral nav {
+    flex-direction: row;
+  }
+
+  .menu-lateral a {
+    flex: 1;
+    text-align: center;
+  }
+
+  main {
+    width: 100%;
+    padding: 1rem;
+  }
+}

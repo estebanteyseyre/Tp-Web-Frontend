@@ -1,11 +1,18 @@
-<header>
+<header class="cabecera">
   <h1>TP Tecnologías Web — Competiciones y Autos</h1>
-  <nav>
-    <a routerLink="/competiciones">Competiciones</a>
-    <a routerLink="/autos">Autos</a>
-  </nav>
+  <p class="bajada">Panel de administración</p>
 </header>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+<div class="cuerpo">
+  <aside class="menu-lateral">
+    <h2>Menú</h2>
+    <nav>
+      <a routerLink="/competiciones" routerLinkActive="activo">Competiciones</a>
+      <a routerLink="/autos" routerLinkActive="activo">Autos</a>
+    </nav>
+  </aside>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

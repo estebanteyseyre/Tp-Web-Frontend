@@ -65,8 +65,14 @@
     </span>
   </div>
 
-  <button type="submit" [disabled]="autoForm.invalid || auto.competicionId === 0 || guardando">
-    {{ guardando ? 'Guardando...' : 'Guardar' }}
-  </button>
-  <a routerLink="/autos">Cancelar</a>
+  <div class="acciones">
+    <button
+      type="submit"
+      class="btn"
+      [disabled]="autoForm.invalid || auto.competicionId === 0 || guardando"
+    >
+      {{ guardando ? 'Guardando...' : 'Guardar' }}
+    </button>
+    <a class="btn btn-secundario" routerLink="/autos">Cancelar</a>
+  </div>
 </form>

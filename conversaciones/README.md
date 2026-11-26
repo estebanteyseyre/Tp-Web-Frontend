@@ -13,3 +13,4 @@ No contiene credenciales: las contraseñas de la base quedaron solo en Render.
 - `2026-11-25_21-14_zoneless-y-cargando.md` — bug de “Cargando...” y solución con `markForCheck()`.
 - `2026-11-25_21-32_entrega2-crud-autos.md` — errores en UI, edición, módulo de autos y responsive.
 - `2026-11-25_resumen-final.md` — estado final, URLs, commits y verificación.
+- `2026-11-26_estetica.md` — fondo, botones y menú lateral izquierdo.
