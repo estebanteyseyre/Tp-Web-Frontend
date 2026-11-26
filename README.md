@@ -6,7 +6,7 @@ Incluye pantalla inicial con dos botones, menú lateral, imagen de fondo, **busc
 
 ## Deploy
 
-- **Frontend (Render Static Site):** `https://<nombre>.onrender.com` — se crea desde el `render.yaml` de este repo. Reemplazar `<nombre>` por el dominio que asigne Render.
+- **Frontend (Render Static Site):** https://tp-web-frontend.onrender.com — se crea desde el `render.yaml` de este repo.
 - **Backend (Render):** https://tp-web-backend-w7x0.onrender.com
 - **Frontend anterior (Netlify):** https://tp-web-frontend-srau.netlify.app — quedó **pausado por créditos agotados** del plan gratuito y todavía sirve el bundle anterior. No se usa para la entrega.
 

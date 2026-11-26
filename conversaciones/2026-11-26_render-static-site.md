@@ -19,14 +19,26 @@
   - `routes` con un **rewrite** `/*` → `/index.html`: mismo efecto que `public/_redirects` en Netlify, para que refrescar `/competiciones/4` no dé 404.
   - `NODE_VERSION=24`: Angular 22 exige Node 22.22.3+ o 24.15+; la versión por defecto de Render para servicios nuevos es 24.x y esto lo deja explícito.
 - Actualizó `README.md`, `conversaciones/README.md` y `conversaciones/RESUMEN-PARA-ENTREGA.md` con el nuevo deploy y el aviso de que Netlify quedó pausado.
-- Dejó el pasaje a la URL definitiva para cuando Render asigne el dominio: hay que reemplazar el placeholder `<nombre>` en la documentación y en el mail de entrega.
+- Dejó un placeholder en la documentación hasta que Render asignara el dominio.
 
 - Checkpoint: ¿por qué el `render.yaml` necesita un rewrite aunque ya existe `public/_redirects`? Porque `_redirects` es un archivo que interpreta Netlify; Render no lo lee y necesita su propia regla `routes` para servir `index.html` en rutas internas.
 
-## Faltan los pasos del usuario en el panel de Render
+## Pasos que el usuario hizo en el panel de Render
 
 1. `https://dashboard.render.com` → **New → Blueprint**.
-2. Conectar el repo **`Tp-Web-Frontend`**, rama `main`.
-3. Aplicar el blueprint; Render crea el Static Site `tp-web-frontend`.
-4. Copiar la URL `https://<nombre>.onrender.com` que aparece en el dashboard.
-5. Verificar con **Ctrl+U** que el HTML referencie `main-HBAHTSRN.js` y probar **Ver detalle** en una competición.
+2. Conectó el repo **`Tp-Web-Frontend`**, rama `main`.
+3. Aplicó el blueprint; Render creó el Static Site `tp-web-frontend`.
+4. Copió la URL asignada: **https://tp-web-frontend.onrender.com/**.
+
+## Interacción posterior: URL definitiva y verificación
+
+## Usuario:
+- Pasó la URL `https://tp-web-frontend.onrender.com/`.
+
+## Asistente:
+- Verificó por HTTP que la raíz y `/competiciones/4` devuelven **200** con `<app-root>` y el bundle nuevo (`main-HBAHTSRN.js`, `styles-MBT44N2N.css`). Es decir, el rewrite del `render.yaml` funciona y Netlify ya no es necesario.
+- Verificó en navegador contra la API de Render: el listado cargó 2 competiciones con las cabezas de columna ordenables, “Ver detalle” abrió `/competiciones/4` y mostró “imola” con 1 auto inscripto. Sin errores en consola.
+- Reemplazó el placeholder por la URL real en `README.md`, `conversaciones/RESUMEN-PARA-ENTREGA.md` y `conversaciones/resumen-frontend.md`; actualizó los commits y el checklist de ese resumen.
+- Commit y push con el hash de este cambio.
+
+- Checkpoint: ¿por qué `/competiciones/4` responde 200 si en el servidor no existe ese archivo? Porque el rewrite `/* → /index.html` hace que Render sirva el HTML de la SPA; después es Angular quien lee la URL y decide qué componente mostrar.

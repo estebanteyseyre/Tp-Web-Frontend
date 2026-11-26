@@ -1,5 +1,7 @@
 # Resumen final del frontend
 
+> **Actualización 2026-11-26:** el link de Netlify de este resumen quedó pausado por créditos agotados y sirve el bundle anterior. La URL de producción vigente es https://tp-web-frontend.onrender.com (Static Site en Render). Ver `2026-11-26_render-static-site.md`.
+
 ## Estado
 
 TP de Tecnologías Web (TUARI/UNICEN), entrega 2 completada del lado del frontend.

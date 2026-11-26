@@ -1,7 +1,8 @@
 # Resumen del frontend — TP Tecnologías Web
 
 **Estado:** listo para entregar (Entrega 2).  
-**URL pública:** https://tp-web-frontend-srau.netlify.app  
+**URL pública:** https://tp-web-frontend.onrender.com  
+**URL anterior (pausada por créditos de Netlify):** https://tp-web-frontend-srau.netlify.app  
 **Backend que consume:** https://tp-web-backend-w7x0.onrender.com  
 **Repo:** https://github.com/estebanteyseyre/Tp-Web-Frontend
 
@@ -33,7 +34,7 @@ Es una SPA de Angular que administra **Competiciones** y **Autos** contra la API
 - **Zoneless**: no hay Zone.js. Cada vez que una respuesta HTTP o un evento del Router actualiza una propiedad, se llama a `ChangeDetectorRef.markForCheck()` para pedir un ciclo de detección de cambios.
 - La suscripción a `queryParamMap` se cancela con `takeUntilDestroyed(this.destroyRef)` para no dejar suscripciones colgadas.
 - `environments`: `environment.ts` apunta a Render (producción) y `environment.development.ts` a `http://localhost:3000` (desarrollo).
-- Assets estáticos en `public/`: `fondo.avif` y `_redirects`.
+- Assets estáticos en `public/`: `fondo.avif` y `_redirects` (para Netlify). En Render, el rewrite equivalente vive en `render.yaml`.
 
 ## 3. Estructura de archivos
 
@@ -55,6 +56,7 @@ src/app/
   shared/busqueda.ts                 -> normalizar / coincide (buscadores)
 src/environments/                    -> URL de la API por entorno
 public/_redirects                    -> /* /index.html 200 (refrescar rutas en Netlify)
+render.yaml                          -> Static Site en Render: build, publish y rewrite /* -> /index.html
 public/fondo.avif                    -> imagen de fondo
 ```
 
@@ -97,7 +99,7 @@ npm run build    # genera dist/frontend-competicion/browser
 npm test         # Vitest
 ```
 
-Para probar en producción basta abrir la URL de Netlify (usa la API de Render; si el plan gratuito durmió el servicio, la primera request puede tardar ~1 minuto).
+Para probar en producción basta abrir https://tp-web-frontend.onrender.com (usa la API de Render; si el plan gratuito durmió el backend, la primera request puede tardar ~1 minuto y la UI muestra “Cargando...”). La URL de Netlify quedó pausada y sirve el bundle anterior; no se usa para la entrega.
 
 ## 8. Commits del frontend
 
@@ -107,6 +109,8 @@ Para probar en producción basta abrir la URL de Netlify (usa la API de Render; 
 - `6196256` — buscadores, filtro por competición, resumen y corrección del filtro con la respuesta real de la API.
 - `a6fe2a3` — orden, recarga, confirmación de borrado y vista de detalle.
 - `2b728f2` — resumen de las conversaciones del frontend para la entrega.
+- `e80fe8b` — registra los hashes finales en el resumen.
+- `6e78754` — `render.yaml` para publicar el frontend como Static Site y documentación del nuevo deploy.
 
 ## 9. Checklist para entregar
 
@@ -119,7 +123,7 @@ Para probar en producción basta abrir la URL de Netlify (usa la API de Render; 
 - [x] Buscadores y autos por competición.
 - [x] Orden por columna, botón de recarga y confirmación de borrado.
 - [x] Vista maestro-detalle con `findOne` + relaciones.
-- [x] Backend desplegado en Render y frontend en Netlify.
+- [x] Backend desplegado en Render y frontend como Static Site en Render (https://tp-web-frontend.onrender.com). Netlify quedó pausado por créditos.
 - [x] Build y tests en verde (8 archivos, 16 tests).
 - [x] Verificación en navegador: búsquedas, filtro por competición, limpiar y consola sin errores.
 - [ ] Mail de entrega con los 4 links (borrador listo; falta completar nombre del alumno y del profesor y enviarlo).

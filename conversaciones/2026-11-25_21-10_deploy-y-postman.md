@@ -1,5 +1,7 @@
 # Interacción - 2026-11-25 21:10
 
+> **Actualización 2026-11-26:** el deploy de Netlify descripta acá quedó pausada por falta de créditos. El frontend se publicó después como Static Site en Render: https://tp-web-frontend.onrender.com. Ver `2026-11-26_render-static-site.md`.
+
 ## Usuario:
 - Pidió ayuda para desplegar el backend en Render y cargar datos de ejemplo desde Postman.
 - Después pidió desplegar el frontend en Netlify y que la tabla mostrara los datos.

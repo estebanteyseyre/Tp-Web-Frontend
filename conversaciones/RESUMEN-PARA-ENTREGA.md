@@ -1,7 +1,7 @@
 # Resumen de conversaciones — FRONTEND (para entregar)
 
 **Alcance:** sólo el trabajo del frontend (`Tp-Web-Frontend`). El historia del backend está en el otro repo y no se incluye acá.
-**URL de la app (producción):** `https://<nombre>.onrender.com` — Static Site en Render creado desde `render.yaml` (reemplazar `<nombre>` por el dominio que asigne Render).  
+**URL de la app (producción):** https://tp-web-frontend.onrender.com — Static Site en Render creado desde `render.yaml`.  
 **URL anterior (pausada por créditos):** https://tp-web-frontend-srau.netlify.app — sirve el bundle anterior; no se usa para la entrega.  
 **Repo:** https://github.com/estebanteyseyre/Tp-Web-Frontend
 
