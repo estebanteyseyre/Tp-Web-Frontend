@@ -6,15 +6,22 @@ Incluye pantalla inicial con dos botones, menú lateral, imagen de fondo, **busc
 
 ## Deploy
 
-- **Frontend (Netlify):** https://tp-web-frontend-srau.netlify.app
+- **Frontend (Render Static Site):** `https://<nombre>.onrender.com` — se crea desde el `render.yaml` de este repo. Reemplazar `<nombre>` por el dominio que asigne Render.
 - **Backend (Render):** https://tp-web-backend-w7x0.onrender.com
+- **Frontend anterior (Netlify):** https://tp-web-frontend-srau.netlify.app — quedó **pausado por créditos agotados** del plan gratuito y todavía sirve el bundle anterior. No se usa para la entrega.
 
-En Netlify el build se configura con:
+### Cómo publicar el frontend en Render
 
-- **Build command:** `npm run build`
-- **Publish directory:** `dist/frontend-competicion/browser`
+1. En https://dashboard.render.com elegir **New → Blueprint**.
+2. Conectar el repo `Tp-Web-Frontend`, rama `main`.
+3. Aplicar el blueprint. `render.yaml` ya trae:
+   - **Build command:** `npm ci && npm run build`
+   - **Publish directory:** `dist/frontend-competicion/browser`
+   - **Rewrite** `/*` → `/index.html` (equivalente a `public/_redirects` en Netlify) para poder refrescar `/competiciones/4`.
+   - `NODE_VERSION=24` (Angular 22 necesita Node 22.22.3+ o 24.15+).
+4. Verificar con **Ctrl+U** que el HTML referencie `main-HBAHTSRN.js` y probar **Ver detalle** en una competición.
 
-El archivo `public/_redirects` (`/* /index.html 200`) hace que refrescar una ruta interna como `/competiciones/nueva` no devuelva 404.
+En Netlify el build estaba configurado con `npm run build` y publish `dist/frontend-competicion/browser`; el archivo `public/_redirects` (`/* /index.html 200`) hacía lo mismo que el rewrite de Render. Se conserva por si algún día se reanuda el equipo.
 
 La imagen de fondo está en `public/fondo.avif` y se aplica desde `styles.css` con un overlay oscuro para que el texto se lea bien. Angular sirve `public/` en la raíz, así que también funciona en Netlify.
 
@@ -55,6 +62,7 @@ src/app/
   shared/busqueda.ts             -> normalización y coincidencia para los buscadores
 src/environments/                -> URL de la API según entorno
 public/_redirects                -> soporte de rutas en Netlify
+render.yaml                      -> Static Site en Render (build, publish y rewrite SPA)
 ```
 
 ## Build y tests

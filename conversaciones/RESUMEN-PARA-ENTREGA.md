@@ -1,7 +1,8 @@
 # Resumen de conversaciones — FRONTEND (para entregar)
 
 **Alcance:** sólo el trabajo del frontend (`Tp-Web-Frontend`). El historia del backend está en el otro repo y no se incluye acá.
-**URL de la app:** https://tp-web-frontend-srau.netlify.app  
+**URL de la app (producción):** `https://<nombre>.onrender.com` — Static Site en Render creado desde `render.yaml` (reemplazar `<nombre>` por el dominio que asigne Render).  
+**URL anterior (pausada por créditos):** https://tp-web-frontend-srau.netlify.app — sirve el bundle anterior; no se usa para la entrega.  
 **Repo:** https://github.com/estebanteyseyre/Tp-Web-Frontend
 
 Este archivo es un índice contado en palabras simples: qué se pidió, qué se hizo y qué concepto conviene poder explicar. El detalle de cada interacción está en los archivos `2026-11-25_*.md` y `2026-11-26_*.md` de esta misma carpeta. No hay credenciales en ninguno.
@@ -43,6 +44,9 @@ Se agregó:
 4. **Confirmación antes de borrar** — modal con “Sí, borrar” / “Cancelar”; el `DELETE` sólo se dispara al confirmar.
 5. **Vista maestro-detalle** — ruta `/competiciones/:id` con `CompeticionDetail`. Llama al mismo `GET /competiciones/:id` que usa el formulario de edición; el backend responde con `relations: { autos: true }`, así que en una sola vista se muestra la competición y sus autos. Tiene botones “Editar competición”, “Ver autos en lista” y “Volver a competiciones”.
 
+### 2026-11-26 — Netlify pausado y deploy alternativo
+El panel de Netlify informó: *“Production deploys are paused — your team has used all of its available credits”*. Como el equipo está en plan gratuito, no se pueden comprar créditos: había que esperar al siguiente ciclo o pagar. Se eligió **no pagar** y publicar el frontend como **Static Site en Render**, usando la misma cuenta del backend. Se agregó `render.yaml` con build (`npm ci && npm run build`), publish (`dist/frontend-competicion/browser`), `NODE_VERSION=24` y el rewrite `/* → /index.html` para las rutas internas. Netlify quedó descartado para la entrega aunque el sitio todavía responda con el bundle viejo.
+
 ## 2. Cómo conviene explicar la opción 5 (maestro-detalle)
 
 - **Cierra el ciclo 1:N de punta a punta:** en NestJS el `findOne` carga la relación con TypeORM (`relations: { autos: true }`), el JSON viaja por HTTP y Angular lo pinta como vista maestro-detalle.
@@ -57,8 +61,8 @@ Se agregó:
 - [x] Errores del backend mostrados en pantalla.
 - [x] Diseño responsive.
 - [x] Buscadores, orden, recarga y confirmación de borrado.
-- [x] Deploy: frontend en Netlify, backend en Render con datos de ejemplo. El último push todavía estaba pendiente de publicación al momento de escribir este resumen: Netlify sirve el bundle anterior; el refresh de rutas internas (incluida `/competiciones/4`) ya responde 200.
-- [x] `_redirects` para refrescar rutas internas, incluida la nueva `/competiciones/:id`.
+- [x] Deploy: backend en Render con datos de ejemplo y frontend como **Static Site en Render** (`render.yaml`). Netlify quedó pausado por créditos y sirve el bundle anterior; se descarta para la entrega.
+- [x] Rewrite `/* → /index.html` en `render.yaml` (y `public/_redirects` para Netlify) para refrescar rutas internas, incluida la nueva `/competiciones/:id`.
 - [x] Producción apunta a Render (no a `localhost`).
 - [x] Build y tests en verde; verificación en navegador sin errores de consola.
 - [ ] El mail con los 4 links: borrador listo, falta completar nombre del alumno y del profesor y enviarlo.
@@ -77,5 +81,6 @@ Se agregó:
 - `2026-11-26_menu-inicial.md`
 - `2026-11-26_buscar-y-filtrar.md`
 - `2026-11-26_detalle-y-extras.md`
+- `2026-11-26_render-static-site.md` — pausa de Netlify y deploy alternativo en Render.
 - `resumen-frontend.md` — resumen técnico (stack, rutas, servicios, commits).
 - `RESUMEN-PARA-ENTREGA.md` — este archivo.
