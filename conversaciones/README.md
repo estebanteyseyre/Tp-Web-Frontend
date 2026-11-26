@@ -16,4 +16,6 @@ No contiene credenciales: las contraseñas de la base quedaron solo en Render.
 - `2026-11-26_estetica.md` — fondo, botones y menú lateral izquierdo.
 - `2026-11-26_menu-inicial.md` — pantalla de inicio con título y dos botones, imagen de fondo.
 - `2026-11-26_buscar-y-filtrar.md` — buscadores y autos por competición.
-- `resumen-frontend.md` — resumen completo para la entrega, rutas, servicios y checklist.
+- `2026-11-26_detalle-y-extras.md` — orden, recarga, confirmación de borrado y vista de detalle.
+- `resumen-frontend.md` — resumen técnico completo: rutas, servicios y checklist.
+- `RESUMEN-PARA-ENTREGA.md` — resumen de las conversaciones del frontend para entregar.

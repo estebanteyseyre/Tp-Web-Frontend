@@ -2,7 +2,7 @@
 
 SPA de Angular que consume la API REST del backend de este TP. Permite el **CRUD completo de competiciones y autos** desde la UI, muestra la relación 1:N (cantidad de autos por competición y competición asignada a cada auto) y maneja errores de carga/guardado.
 
-Incluye pantalla inicial con dos botones, menú lateral, imagen de fondo, **buscadores en ambas tablas** y un botón “Ver autos” por competición que filtra los autos con `/autos?competicion=<id>`.
+Incluye pantalla inicial con dos botones, menú lateral, imagen de fondo, **buscadores en ambas tablas**, orden por columna, botón “Actualizar lista”, confirmación antes de borrar y una **vista de detalle** en `/competiciones/:id` que muestra una competición con sus autos. El botón “Ver autos” filtra con `/autos?competicion=<id>`.
 
 ## Deploy
 
@@ -23,7 +23,7 @@ La imagen de fondo está en `public/fondo.avif` y se aplica desde `styles.css` c
 - **Angular 22.3.0** en modo **NgModule** (`standalone: false`), igual que el estilo de las slides pero con la versión actual del framework.
 - **HttpClient** provisto con `provideHttpClient()` en `app-module.ts`.
 - **FormsModule** para `[(ngModel)]` en el formulario.
-- **Router** con rutas `/`, `/competiciones`, `/autos`, altas y ediciones (ver `conversaciones/resumen-frontend.md`).
+- **Router** con rutas `/`, `/competiciones`, `/autos`, altas, ediciones y `/competiciones/:id` (ver `conversaciones/resumen-frontend.md`).
 - **Environments** generados con `ng generate environments`.
 
 ## Desarrollo
@@ -47,6 +47,7 @@ src/app/
     competicion-data.ts          -> servicio con el CRUD (GET/POST/PATCH/DELETE)
     competicion-list/            -> tabla con buscador, cantidad de autos y botón "Ver autos"
     competicion-form/            -> formulario con validación (alta y edición)
+    competicion-detail/          -> detalle de una competición con sus autos
   autos/
     auto-data.ts                 -> servicio con el CRUD de autos
     auto-list/                   -> tabla con buscador y filtro por competición
@@ -60,7 +61,7 @@ public/_redirects                -> soporte de rutas en Netlify
 
 ```bash
 npm run build   # genera dist/frontend-competicion/browser
-npm test        # Vitest (7 archivos, 12 tests pasando)
+npm test        # Vitest (8 archivos, 16 tests pasando)
 ```
 
 ## Notas para la cátedra
@@ -73,6 +74,7 @@ Angular 22 trae cambios respecto del Angular 12 de las slides:
 - Los assets estáticos van en `public/`, no en `src/assets/`.
 - Los buscadores filtran en el cliente con `shared/busqueda.ts` (sin tildes ni mayúsculas). `AutoList` lee `?competicion=<id>` con `ActivatedRoute.queryParamMap` y cancela esa suscripción con `takeUntilDestroyed()`.
 
-## Resumen completo
+## Resumen para la entrega
 
-Ver `conversaciones/resumen-frontend.md`.
+- `conversaciones/RESUMEN-PARA-ENTREGA.md` — resumen de las conversaciones del frontend y checklist.
+- `conversaciones/resumen-frontend.md` — resumen técnico: stack, rutas, servicios y commits.

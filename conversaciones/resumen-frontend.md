@@ -16,6 +16,9 @@ Es una SPA de Angular que administra **Competiciones** y **Autos** contra la API
   - en la tabla de autos se muestra la competición asignada (`a.competicion?.nombre`).
 - **Ver los autos de una competición:** botón “Ver autos” en cada fila navega a `/autos?competicion=<id>`; el listado de autos muestra un aviso con el nombre de la competición y un botón “Ver todos los autos”.
 - **Buscadores** en ambas tablas: filtran mientras escribo, ignorando mayúsculas y tildes.
+- **Orden por columna** con flechas ▲/▼ y **botón “Actualizar lista”** en ambas tablas.
+- **Confirmación antes de borrar** con un modal (“Sí, borrar” / “Cancelar”).
+- **Vista de detalle** `/competiciones/:id`: muestra la competición y sus autos con un solo GET (el backend carga la relación con TypeORM).
 - Pantalla inicial con título grande y dos botones (“Competiciones” y “Autos”).
 - Menú lateral izquierdo en las pantallas internas; se oculta en el inicio.
 - Errores y estados de carga visibles en la UI.
@@ -44,6 +47,7 @@ src/app/
     competicion-data.ts              -> servicio CRUD de competiciones
     competicion-list/                -> tabla + buscador + botón "Ver autos"
     competicion-form/                -> alta y edición con validación
+    competicion-detail/              -> vista maestro-detalle con los autos de una competición
   autos/
     auto-data.ts                     -> servicio CRUD de autos
     auto-list/                       -> tabla + buscador + filtro por competición
@@ -62,6 +66,7 @@ public/fondo.avif                    -> imagen de fondo
 | `/competiciones` | `CompeticionList` | Lista, buscador y acciones |
 | `/competiciones/nueva` | `CompeticionForm` | Alta |
 | `/competiciones/editar/:id` | `CompeticionForm` | Edición |
+| `/competiciones/:id` | `CompeticionDetail` | Detalle con los autos de esa competición |
 | `/autos` | `AutoList` | Lista, buscador y filtro opcional |
 | `/autos?competicion=:id` | `AutoList` | Autos de una competición |
 | `/autos/nuevo` | `AutoForm` | Alta |
@@ -78,7 +83,7 @@ La API devuelve la relación como `auto.competicion` (objeto), **no** como `comp
 
 ## 6. Validación y errores
 
-- Formularios con `ngModel` + `required` y `minlength` donde corresponde; el botón “Guardar” queda deshabilitado hasta que el formulario es válido.
+- Formularios con `ngModel` + `required` y `min` donde corresponde; cada campo muestra su mensaje al ser tocado y el botón “Guardar” queda deshabilitado hasta que el formulario es válido.
 - Estados `cargando` y `error` en los listados; `subscribe({ next, error })` para cada operación.
 - Si falla el GET de competiciones dentro de `AutoList`, el listado de autos igual funciona y el nombre del filtro muestra el ID.
 
@@ -100,6 +105,7 @@ Para probar en producción basta abrir la URL de Netlify (usa la API de Render; 
 - `22bca0f` — menú lateral, botones y fondo con degradado.
 - `cd821d4` — pantalla inicial, imagen de fondo y dos botones.
 - `6196256` — buscadores, filtro por competición, resumen y corrección del filtro con la respuesta real de la API.
+- (último commit de esta entrega) — orden, recarga, confirmación de borrado, vista de detalle y resumen de conversaciones.
 
 ## 9. Checklist para entregar
 
@@ -110,7 +116,9 @@ Para probar en producción basta abrir la URL de Netlify (usa la API de Render; 
 - [x] Menú inicial y menú lateral.
 - [x] Imagen de fondo.
 - [x] Buscadores y autos por competición.
+- [x] Orden por columna, botón de recarga y confirmación de borrado.
+- [x] Vista maestro-detalle con `findOne` + relaciones.
 - [x] Backend desplegado en Render y frontend en Netlify.
-- [x] Build y tests en verde (7 archivos, 12 tests).
+- [x] Build y tests en verde (8 archivos, 16 tests).
 - [x] Verificación en navegador: búsquedas, filtro por competición, limpiar y consola sin errores.
 - [ ] Mail de entrega con los 4 links (borrador listo; falta completar nombre del alumno y del profesor y enviarlo).
